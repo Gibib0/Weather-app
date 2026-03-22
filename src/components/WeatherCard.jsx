@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import Grid from "@mui/material/Grid";
 // =================================
 import {format} from 'date-fns'
-import uk from 'date-fns/locate/uk'
+import uk from 'date-fns/locale/uk'
 
 const getWindDirection = (deg) => {
 	const directions = [
