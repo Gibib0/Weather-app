@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY
+const API_KEY = 'f8085a2ca4ab0438d36df8884da2ba89'
 
 export const searchCities = async (query) => {
   const res = await axios.get('https://api.openweathermap.org/geo/1.0/direct', {
