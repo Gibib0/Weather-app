@@ -23,10 +23,17 @@ const getWindDirection = (deg) => {
 }
 
 export default function WeatherCard({current, cityName, lat, lon}) {
-	if (!current) return null
+	if (!current?.main) {
+		return <div style={{ textAlign: 'center', padding: '20px' }}>Завантаження погоди...</div>
+	}
 
-	const weather = current.weather[0]
+	const main = current.main
+	const wind = current.wind || {}
+	const sys = current.sys || {}
+	const weather = current.weather[0] || {}
 	const iconUrl = `https://openweathermap.org/img/wn/${weather.icon}@4x.png`
+
+	console.log('Current wind data:', current?.wind);
 
 	return (
 		<Card sx={{mb: 3, borderRadius: 3, boxShadow: 4, overflow: 'visible'}}>
@@ -52,18 +59,18 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 				</Box>
 
 				<Typography variant="h1" component="div" fontWeight="bold" sx={{textAlign: 'center', my: 2}}>
-					{Math.round(current.temp)}*C
+					{Math.round(main.temp)}*C
 				</Typography>
 
 				<Typography variant="h6" color="text.secondary" sx={{textAlign: 'center', mb: 3}}>
-					Відчувається як {Math.round(current.feels_like)}*C
+					Відчувається як {Math.round(main.feels_like)}*C
 				</Typography>
 
 				<Grid container spacing={2} justifyContent='center'>
 					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Вологість</Typography>
-							<Typography variant="h6">{current.humidity}%</Typography>
+							<Typography variant="h6">{main.humidity}%</Typography>
 						</Box>
 					</Grid>
 
@@ -71,7 +78,7 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Вітер</Typography>
 							<Typography variant="h6">
-								{Math.round(current.wind_speed)} м/с, {getWindDirection(current.wind_deg)}
+								{Math.round(wind.speed || 0)} м/с, {getWindDirection(wind.deg || 0)}
 							</Typography>
 						</Box>
 					</Grid>
@@ -79,14 +86,14 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Хмарність</Typography>
-							<Typography variant="h6">{current.clouds?.all}%</Typography>
+							<Typography variant="h6">{current.clouds?.all || 0}%</Typography>
 						</Box>
 					</Grid>
 
 					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Видимість</Typography>
-							<Typography variant="h6">{(current.visibility / 1000).toFixed(1)} км</Typography>
+							<Typography variant="h6">{current.visibility ? (current.visibility / 1000).toFixed(1) : '-'} км</Typography>
 						</Box>
 					</Grid>
 				</Grid>
@@ -95,8 +102,8 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 					<Box>
 						<Typography variant="subtitle2" color="text.secondary">Схід сонця</Typography>
 						<Typography variant="body1">
-							{current.sunrise
-									? format(new Date(current.sunrise * 1000), 'HH:mm', {locale: uk})
+							{sys.sunrise
+									? format(new Date(sys.sunrise * 1000), 'HH:mm', {locale: uk})
 									: '--:--'}
 						</Typography>
 					</Box>
@@ -104,8 +111,8 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 					<Box>
 						<Typography variant="subtitle2" color="text.secondary">Захід сонця</Typography>
 						<Typography variant="body1">
-							{current.sunset
-									? format(new Date(current.sunset * 1000), 'HH:mm', {locale: uk})
+							{sys.sunset
+									? format(new Date(sys.sunset * 1000), 'HH:mm', {locale: uk})
 									: '--:--'}
 						</Typography>
 					</Box>

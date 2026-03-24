@@ -41,6 +41,7 @@ export default function SearchBar() {
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
 				onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+				color='white'
 			/>
 			<Button variant='contained' onClick={handleSearch} sx={{px: 4}}>
 				Шукати
