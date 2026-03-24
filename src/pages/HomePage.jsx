@@ -30,11 +30,11 @@ const HomePage = () => {
 		return <div style={{ textAlign: 'center', marginTop: '50px' }}>Завантаження...</div>
 	}
 
-	const hourly24 = data.hourly.slice(0, 9) || []
+	const hourly24 = data?.hourly?.slice(0, 9) || []
 
 	const adaptedHourly = hourly24.map(item => ({
 		dt: item.dt,
-		temp: item.main.temp
+		temp: item.temp
 	}))
 
 	return (

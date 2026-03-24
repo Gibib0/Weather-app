@@ -37,7 +37,9 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 							{cityName}
 						</Typography>
 						<Typography variant="subtitle1" color="text.secondary">
-							{format(new Date(current.dt * 1000), 'EEEE, d, MMMM', {locale: uk})}
+							{current.dt
+									? format(new Date(current.dt * 1000), 'EEEE, d, MMMM', {locale: uk})
+									: ''}
 						</Typography>
 					</Box>
 
@@ -58,14 +60,14 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 				</Typography>
 
 				<Grid container spacing={2} justifyContent='center'>
-					<Grid item xs={6} sm={3}>
+					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Вологість</Typography>
 							<Typography variant="h6">{current.humidity}%</Typography>
 						</Box>
 					</Grid>
 
-					<Grid item xs={6} sm={3}>
+					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Вітер</Typography>
 							<Typography variant="h6">
@@ -74,14 +76,14 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 						</Box>
 					</Grid>
 
-					<Grid item xs={6} sm={3}>
+					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Хмарність</Typography>
-							<Typography variant="h6">{current.clouds}%</Typography>
+							<Typography variant="h6">{current.clouds?.all}%</Typography>
 						</Box>
 					</Grid>
 
-					<Grid item xs={6} sm={3}>
+					<Grid size={{xs: 6, sm: 3}}>
 						<Box textAlign='center'>
 							<Typography variant="subtitle2" color="text.secondary">Видимість</Typography>
 							<Typography variant="h6">{(current.visibility / 1000).toFixed(1)} км</Typography>
@@ -93,20 +95,24 @@ export default function WeatherCard({current, cityName, lat, lon}) {
 					<Box>
 						<Typography variant="subtitle2" color="text.secondary">Схід сонця</Typography>
 						<Typography variant="body1">
-							{format(new Date(current.sunrise * 1000), 'HH:mm', {locale: uk})}
+							{current.sunrise
+									? format(new Date(current.sunrise * 1000), 'HH:mm', {locale: uk})
+									: '--:--'}
 						</Typography>
 					</Box>
 
 					<Box>
 						<Typography variant="subtitle2" color="text.secondary">Захід сонця</Typography>
 						<Typography variant="body1">
-							{format(new Date(current.sunset * 1000), 'HH:mm', {locale: uk})}
+							{current.sunset
+									? format(new Date(current.sunset * 1000), 'HH:mm', {locale: uk})
+									: '--:--'}
 						</Typography>
 					</Box>
 				</Box>
 
 				<Typography variant="caption" color="text.secondary" sx={{display: 'block', mt: 3, textAlign: 'center'}}>
-					Координати: {lat.toFixed(5)}, {lon.toFixed(5)}
+					Координати: {lat ? lat.toFixed(5) : 0}, {lon ? lon.toFixed(5) : 0}
 				</Typography>
 			</CardContent>
 		</Card>
