@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 // ================================
 import {removeFavorite} from "../store/slices/favoritesSlice"
-// import { fetchWeather } from "../store/slices/weatherSlice"
 // ================================
 import ListItem from "@mui/material/ListItem"
 import ListItemText from "@mui/material/ListItemText"
