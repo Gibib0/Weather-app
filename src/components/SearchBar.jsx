@@ -1,16 +1,19 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 // ============================
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 // ============================
-import {fetchWeather, setCityName} from '../store/weatherSlice'
+import {fetchWeather, setCityName} from '../store/slices/weatherSlice'
 import { searchCities } from '../services/openWeatherApi'
+import {createFavorite} from '../store/slices/favoritesSlice'
 
 export default function SearchBar() {
 	const [query, setQuery] = useState('')
 	const dispatch = useDispatch()
+	const favorites = useSelector(state => state.favorites.items)
 
 	const handleSearch = async () => {
 		if (!query.trim()) return
@@ -27,10 +30,25 @@ export default function SearchBar() {
 
 			dispatch(setCityName(cityFullName))
 			dispatch(fetchWeather({lat: city.lat, lon: city.lon}))
+
+			const exists = favorites.some(
+				f => f.lat === city.lat && f.lon === city.lon
+			)
+
+			if (!exists) {
+				dispatch(createFavorite({
+					cityName: cityFullName,
+					lat: city.lat,
+					lon: city.lon
+				}))
+			}
+
 		} catch (error) {
 			console.log(error.message);
 		}
 	}
+
+	
 
 	return (
 		<Box sx={{display: 'flex', gap: 2, mb: 4, maxWidth: 600, mx: 'auto'}}>

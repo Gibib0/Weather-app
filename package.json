@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "json-server --watch src/db.json --port 3000"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -19,6 +20,7 @@
     "chart.js": "^4.5.1",
     "date-fns": "^4.1.0",
     "formik": "^2.4.9",
+    "json-server": "^1.0.0-beta.15",
     "react": "^19.2.4",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.4",

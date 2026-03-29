@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWeather } from "../store/weatherSlice";
+import { useLocation } from "react-router-dom";
+import { fetchWeather } from "../store/slices/weatherSlice";
 // ================================
 import WeatherCard from '../components/WeatherCard'
 import TemperatureChart from '../components/TemperatureChart'
@@ -13,12 +14,20 @@ import Button from "@mui/material/Button";
 
 const HomePage = () => {
 	const dispatch = useDispatch()
+	const location = useLocation()
 	const {data, loading, error, cityName} = useSelector(state => state.weather)
 
 	const [mode, setMode] = useState('24h')
 
 	useEffect(() => {
-		dispatch(fetchWeather({lat: 47.8508, lon: 35.1183}))
+		if (location.state) {
+			dispatch(fetchWeather({
+				lat: location.state.lat,
+				lon: location.state.lon
+			}))
+		} else {
+			dispatch(fetchWeather({lat: 47.8508, lon: 35.1183}))
+		}
 	}, [dispatch])
 
 	if (error) {
