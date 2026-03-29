@@ -48,10 +48,16 @@ export default function SearchBar() {
 		}
 	}
 
-	
-
 	return (
-		<Box sx={{display: 'flex', gap: 2, mb: 4, maxWidth: 600, mx: 'auto'}}>
+		<Box sx={{
+				display: 'flex', 
+				gap: 2, 
+				mb: 4, 
+				mt: 4,
+				maxWidth: 600, 
+				mx: 'auto'
+			}}
+		>
 			<TextField 
 				fullWidth
 				label='Введіть назву міста...'
@@ -61,7 +67,7 @@ export default function SearchBar() {
 				onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
 				color='white'
 			/>
-			<Button variant='contained' onClick={handleSearch} sx={{px: 4}}>
+			<Button variant='contained' onClick={handleSearch} sx={{px: 4}} bgcolor='#d59aff'>
 				Шукати
 			</Button>
 		</Box>

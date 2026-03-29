@@ -6,6 +6,7 @@ import { fetchWeather } from "../store/slices/weatherSlice";
 import WeatherCard from '../components/WeatherCard'
 import TemperatureChart from '../components/TemperatureChart'
 import SearchBar from '../components/SearchBar'
+import Footer from '../components/Footer'
 // ================================
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -99,6 +100,8 @@ const HomePage = () => {
 			</Box>
 
 			<TemperatureChart hourly={chartData} title={chartTitle} />
+
+			<Footer />
 		</>
 	)
 }

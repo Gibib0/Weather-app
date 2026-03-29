@@ -1,10 +1,10 @@
 {
   "favorites": [
     {
-      "cityName": "Apeldoorn, NL",
-      "lat": 52.17957375,
-      "lon": 5.930077460807249,
-      "id": "YlfMcg2gZk8"
+      "cityName": "Kyiv, UA",
+      "lat": 50.4500336,
+      "lon": 30.5241361,
+      "id": "e9Lkvk_mbbU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
